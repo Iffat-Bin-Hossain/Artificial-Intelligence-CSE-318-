@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 #include "Board.hpp"
 using namespace std;
-
 unordered_set<string> visitedStates;
 string boardToString(const vector<vector<string>> &board)
 {
@@ -24,16 +23,17 @@ bool isVisited(const vector<vector<string>> &board)
     return false;
 }
 
-int solvingN_Puzzle(Board *initialBoard, string heuristicApproach)
+void solvingN_Puzzle(Board *initialBoard, string heuristicApproach)
 {
     if (!initialBoard->checkIfSolvable())
     {
-        cout << "Unsolvable puzzle !!!" << endl;
-        return -1;
+        fout << "Unsolvable puzzle !!!" << endl;
+        return;
     }
 
     stack<Board *> minimalMoves;
-    Board *goalBoard = nullptr, *currentBoard = nullptr;
+    int exploredBoards = 0, expandedBoards = 0;
+    Board *goalBoard = NULL, *currentBoard = NULL;
     priority_queue<pair<int, Board *>, vector<pair<int, Board *>>, greater<pair<int, Board *>>> pq;
     int initialHeuristic = (heuristicApproach == "hamming") ? initialBoard->getHammingDistance() : initialBoard->getManhattanDistance();
     pq.push({initialHeuristic, initialBoard});
@@ -49,9 +49,10 @@ int solvingN_Puzzle(Board *initialBoard, string heuristicApproach)
             goalBoard = currentBoard;
             break;
         }
-
+        expandedBoards++;
         for (auto reachableBoard : currentBoard->allReachableBoards())
         {
+            exploredBoards++;
             if (!isVisited(reachableBoard->getBoard()))
             {
                 int newCost = actualDistance - ((heuristicApproach == "hamming") ? currentBoard->getHammingDistance() : currentBoard->getManhattanDistance()) + 1;
@@ -66,24 +67,36 @@ int solvingN_Puzzle(Board *initialBoard, string heuristicApproach)
         currentBoard = currentBoard->getPrevious();
     }
     visitedStates.clear();
-    return minimalMoves.size() - 1;
+    fout << "Number of minimum steps by using " + heuristicApproach + ": " << minimalMoves.size() - 1 << endl;
+    fout << "Number of explored boards by using " + heuristicApproach + ": " << exploredBoards << endl;
+    fout << "Number of expanded boards by using " + heuristicApproach + ": " << expandedBoards << endl;
+    fout << "Step by step movement:" << endl;
+    while(!minimalMoves.empty()){
+        minimalMoves.top()->printBoard();
+        fout<<"\n\n";
+        minimalMoves.pop();
+        
+    }
+    
 }
 
 int main()
 {
+    ifstream fin("input.txt");
+    
     vector<vector<string>> board;
     int dimension;
-    cin >> dimension;
+    fin >> dimension;
     board.resize(dimension, vector<string>(dimension));
     for (int i = 0; i < dimension; i++)
     {
         for (int j = 0; j < dimension; j++)
         {
-            cin >> board[i][j];
+            fin >> board[i][j];
         }
     }
     Board *puzzle = new Board(dimension, board);
-    cout << solvingN_Puzzle(puzzle, "hamming") << endl;
-    cout << solvingN_Puzzle(puzzle, "manhattan") << endl;
+   solvingN_Puzzle(puzzle, "hamming");
+     solvingN_Puzzle(puzzle, "manhattan");
     delete puzzle;
 }

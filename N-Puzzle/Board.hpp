@@ -3,7 +3,7 @@
 
 #include <bits/stdc++.h>
 using namespace std;
-
+ofstream fout("output.txt");
 template <typename T>
 void swapContent(vector<vector<T>> &twoDArray, int oldRow, int oldCol, int newRow, int newCol)
 {
@@ -48,22 +48,22 @@ public:
 
             for (int j = 0; j < dimension; ++j)
             {
-                cout << "+---";
+                fout << "+-----";
             }
-            cout << "+" << endl;
+            fout << "+" << endl;
 
             for (int j = 0; j < dimension; ++j)
             {
-                cout << "| " + board[i][j] + " ";
+                fout << "|  " + board[i][j] + "  ";
             }
-            cout << "|" << endl;
+            fout << "|" << endl;
         }
 
         for (int j = 0; j < dimension; ++j)
         {
-            cout << "+---";
+            fout << "+-----";
         }
-        cout << "+" << endl;
+        fout << "+" << endl;
     }
 
     vector<string> oneDimensionalBoard()

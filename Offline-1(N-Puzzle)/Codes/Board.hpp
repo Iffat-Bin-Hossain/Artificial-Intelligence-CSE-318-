@@ -206,32 +206,29 @@ public:
         return hammingDistance;
     }
     int getManhattanDistance()
-{
-    int manhattanDistance = 0;
-
-    
-    for (int i = 0; i < this->dimension; i++)
     {
-        for (int j = 0; j < this->dimension; j++)
+        int manhattanDistance = 0;
+
+        for (int i = 0; i < this->dimension; i++)
         {
-           
-            int tile = atoi(board[i][j].c_str());
-
-            
-            if (tile > 0)
+            for (int j = 0; j < this->dimension; j++)
             {
-                
-                int actualRow = (tile - 1) / dimension;
-                int actualColumn = (tile - 1) % dimension;
 
-                
-                manhattanDistance += abs(actualRow - i) + abs(actualColumn - j);
+                int tile = atoi(board[i][j].c_str());
+
+                if (tile > 0)
+                {
+
+                    int actualRow = (tile - 1) / dimension;
+                    int actualColumn = (tile - 1) % dimension;
+
+                    manhattanDistance += abs(actualRow - i) + abs(actualColumn - j);
+                }
             }
         }
-    }
 
-    return manhattanDistance;
-}
+        return manhattanDistance;
+    }
 
     bool isIdenticalBoard(vector<vector<string>> &newBoard)
     {

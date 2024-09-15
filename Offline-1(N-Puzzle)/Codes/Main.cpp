@@ -52,7 +52,6 @@ void solvingN_Puzzle(Board *initialBoard, string heuristicApproach)
         expandedBoards++;
         for (auto reachableBoard : currentBoard->allReachableBoards())
         {
-            exploredBoards++;
             if (!isVisited(reachableBoard->getBoard()))
             {
                 int newCost = actualDistance - ((heuristicApproach == "hamming") ? currentBoard->getHammingDistance() : currentBoard->getManhattanDistance()) + 1;
@@ -66,24 +65,24 @@ void solvingN_Puzzle(Board *initialBoard, string heuristicApproach)
         minimalMoves.push(currentBoard);
         currentBoard = currentBoard->getPrevious();
     }
+    exploredBoards = visitedStates.size();
     visitedStates.clear();
     fout << "Number of minimum steps by using " + heuristicApproach + ": " << minimalMoves.size() - 1 << endl;
     fout << "Number of explored boards by using " + heuristicApproach + ": " << exploredBoards << endl;
     fout << "Number of expanded boards by using " + heuristicApproach + ": " << expandedBoards << endl;
     fout << "Step by step movement:" << endl;
-    while(!minimalMoves.empty()){
+    while (!minimalMoves.empty())
+    {
         minimalMoves.top()->printBoard();
-        fout<<"\n\n";
+        fout << "\n\n";
         minimalMoves.pop();
-        
     }
-    
 }
 
 int main()
 {
     ifstream fin("input.txt");
-    
+
     vector<vector<string>> board;
     int dimension;
     fin >> dimension;
@@ -96,7 +95,7 @@ int main()
         }
     }
     Board *puzzle = new Board(dimension, board);
-   solvingN_Puzzle(puzzle, "hamming");
-     solvingN_Puzzle(puzzle, "manhattan");
+    solvingN_Puzzle(puzzle, "hamming");
+    solvingN_Puzzle(puzzle, "manhattan");
     delete puzzle;
 }

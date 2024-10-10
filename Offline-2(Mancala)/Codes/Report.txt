@@ -1,0 +1,16 @@
+heuristic-1 :  heuristic-1  =  25 : 23
+heuristic-1 :  heuristic-2  =  33 : 15
+heuristic-1 :  heuristic-3  =  33 : 15
+heuristic-1 :  heuristic-4  =  36 : 12
+heuristic-2 :  heuristic-1  =  37 : 11
+heuristic-2 :  heuristic-2  =  24 : 24
+heuristic-2 :  heuristic-3  =  18 : 30
+heuristic-2 :  heuristic-4  =  33 : 15
+heuristic-3 :  heuristic-1  =  26 : 22
+heuristic-3 :  heuristic-2  =  27 : 21
+heuristic-3 :  heuristic-3  =  27 : 21
+heuristic-3 :  heuristic-4  =  31 : 17
+heuristic-4 :  heuristic-1  =  24 : 24
+heuristic-4 :  heuristic-2  =  16 : 32
+heuristic-4 :  heuristic-3  =  16 : 32
+heuristic-4 :  heuristic-4  =  29 : 19

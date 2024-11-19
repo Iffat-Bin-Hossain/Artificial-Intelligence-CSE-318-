@@ -91,9 +91,10 @@ MancalaBoard computerVscomputer(int heu1, int heu2, int depth, bool print = fals
     {
         int winner = mancala.who_is_winner();
         cout << "Player1 : " << mancala.get_p1_score() << "  |   Player2: " << mancala.get_p2_score() << endl;
+
         if (winner != 0)
         {
-            
+
             cout << "Player-" << winner << " wins the match......" << endl;
         }
         else
@@ -108,22 +109,38 @@ MancalaBoard computerVscomputer(int heu1, int heu2, int depth, bool print = fals
 void generateReport(int depth)
 {
     ofstream fout("Report.txt");
+    int p1Wins = 0, p2Wins = 0;
     for (int i = 1; i <= 4; i++)
     {
         for (int j = 1; j <= 4; j++)
         {
             MancalaBoard mancala = computerVscomputer(i, j, depth);
             fout << "heuristic-" << i << " : " << " heuristic-" << j << "  =  " << mancala.get_p1_score()
-                 << " : " << mancala.get_p2_score() << endl;
+                 << " : " << mancala.get_p2_score();
+            if (mancala.get_p1_score() > mancala.get_p2_score())
+            {
+                fout << " ;Winner : Player-1" << endl;
+                p1Wins++;
+            }
+            else if (mancala.get_p2_score() > mancala.get_p1_score())
+            {
+                fout << " ;Winner : Player-2" << endl;
+                p2Wins++;
+            }
+            else
+            {
+                fout << " ;Winner : None" << endl;
+            }
         }
     }
+    fout << "\n\nPlayer-1 wins " << p1Wins << " times;Player-2 wins " << p2Wins << " times" << endl;
 }
 
 int main()
 {
-     //manVscomputer(2,10);
-    generateReport(12);
-    MancalaBoard mancala = computerVscomputer(4, 1, 12, true);
-    
+     //manVscomputer(2,12);
+    generateReport(8);
+    // MancalaBoard mancala = computerVscomputer(4, 1, 12, true);
+
     return 0;
 }

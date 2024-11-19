@@ -156,7 +156,7 @@ public:
         // get another turn
         if (last_stone_position != 6)
         {
-            currentTurn = currentTurn == 1 ? 2 : 1;
+            currentTurn = 3 - currentTurn;
         }
         else
         {
